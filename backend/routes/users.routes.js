@@ -1,24 +1,22 @@
 const express = require("express");
+const {
+  setUser,
+  getUsers,
+  editUser,
+  deleteUser,
+} = require("../controllers/users.controller");
 const router = express.Router();
 
 //C
-router.post("/", (req, res) => {
-  res.json({ message: req.body.message });
-});
+router.post("/", setUser);
 
 //R
-router.get("/", (req, res) => {
-  res.json({ message: "Voici les données" });
-});
+router.get("/", getUsers);
 
 //U
-router.put("/:id", (req, res) => {
-  res.json({ messageId: req.params.id });
-});
+router.put("/:id", editUser);
 
 //D
-router.delete("/:id", (req, res) => {
-  res.json({ message: "Supprimé : " + req.params.id });
-});
+router.delete("/:id", deleteUser);
 
 module.exports = router;
