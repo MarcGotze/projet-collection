@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const validator = require("validator");
 
 const usersSchema = mongoose.Schema(
   {
@@ -10,10 +11,19 @@ const usersSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
+      validate(v) {
+        if (!validator.isLength(v, { min: 6, max: 20 }))
+          throw new Error(
+            "Le mot de passe doit être entre 6 et 20 caractères !"
+          );
+      },
     },
     mail: {
       type: String,
       required: true,
+      validate(v) {
+        if (!validator.isEmail(v)) throw new Error("E-mail non valide !");
+      },
     },
     location: {
       type: String,
