@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Appel des routes users
-app.use("/users", require("./routes/users.routes"));
+app.use("/users", require("./routes/user.routes"));
 
 //Lancement du serveur
 app.listen(port, () => console.log("Le serveur a démarré au port " + port));
