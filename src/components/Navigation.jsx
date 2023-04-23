@@ -6,6 +6,7 @@ const Navigation = () => {
     return (
         <div>
             <UserLog />
+            <button>Créer un compte</button>
         </div>
     );
 };
