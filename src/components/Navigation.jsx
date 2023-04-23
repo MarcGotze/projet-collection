@@ -6,7 +6,7 @@ const Navigation = () => {
     return (
         <div>
             <UserLog />
-            <button>Créer un compte</button>
+            <NavLink to ="/profil"><button type="button">Créer un compte</button></NavLink>
         </div>
     );
 };
