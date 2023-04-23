@@ -1,19 +1,23 @@
 import { useForm } from "react-hook-form";
 
 const UserCreate =() => {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+  const {handleSubmit, register, formState : {errors}} = useForm();
+  function onSubmit(data) {
+    console.log(data);
+  }
+   
      
     return (
-      <form className="register-form" onSubmit={handleSubmit(onSubmit)} >
-        <label for="pseudo">Nom d'utilisateur : </label>
-        <input name="pseudo" {...register("pseudo")} />
-        <label for="password">Mot de passe : </label>
-        <input name="password" type="password" {...register("password")} />
-        <label for="email">Email : </label>
-        <input name="email" type="email" {...register("email")} />
-        <label name="localisation" for="email">Ville : </label>
-        <input name="localisation" {...register("localisation")} />
+      <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="pseudo">Nom d'utilisateur : </label>
+        <input name="pseudo" {...register("pseudo", {required : true})}/>
+        {errors.pseudo && <p>Le pseudo est requis</p>}
+        <label htmlFor="password">Mot de passe : </label>
+        <input name="password" type="password"{...register("password")}/>
+        <label htmlFor="email">Email : </label>
+        <input name="email" type="email"{...register("email")}/>
+        <label name="localisation" htmlFor="email">Ville : </label>
+        <input name="localisation" {...register("localisation")}/>
         <input type="submit" />
       </form>
     );

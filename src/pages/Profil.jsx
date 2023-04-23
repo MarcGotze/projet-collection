@@ -1,14 +1,13 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
 import Header from '../components/Header';
-import UserCreate from '../components/UserCreate';
+import FormInput from '../components/FormInput';
 
 const Profil = () => {
     return (
         <div>
             <Header/>
             <h1>Profil utilisateur</h1>
-            <UserCreate />
+            <FormInput />
         </div>
     );
 };
