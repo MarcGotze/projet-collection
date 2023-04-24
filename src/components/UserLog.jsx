@@ -1,11 +1,12 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const UserLog = () => {
     return (
-        <div>
-            <form>
+        <div class="form-wrapper">
+            <form className="userform">
                 <label htmlFor="userName">
-                    Login :
+                    Email :
                 </label>
                 <input type="text" name="userName"/>
                 <label htmlFor="userPassword">
@@ -14,6 +15,8 @@ const UserLog = () => {
                 <input type="text" name="userPassword"/>
                 <input type="submit" name="submit" value ="Se connecter"/>
             </form>
+            <p>Vous ne possédez pas de compte ?</p>
+            <p><NavLink to="/Register">Créer un compte</NavLink></p>
         </div>
     );
 };
