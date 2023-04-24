@@ -11,12 +11,14 @@ const router = express.Router();
 router.post("/register", setUser);
 
 //R
-router.get("/", getUsers);
+router.get("/users", getUsers);
 
 //U
 router.put("/:id", editUser);
 
 //D
 router.delete("/:id", deleteUser);
+
+//LOGIN IN WORK
 
 module.exports = router;
