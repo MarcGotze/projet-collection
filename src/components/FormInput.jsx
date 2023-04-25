@@ -6,6 +6,7 @@ const FormInput = (props) => {
         <div className="formInput">
             <label>{label}</label>
             <input {...inputProps} onChange={onChange}></input>
+            <span>{errorMessage}</span>
         </div>
     );
 };

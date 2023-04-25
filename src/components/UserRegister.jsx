@@ -52,11 +52,12 @@ const UserRegister = () => {
     return (
         <div class="form-wrapper">
 
-            <form onSubmit={handleSubmit}>
+            <form className="userform" onSubmit={handleSubmit}>
+                <legend><h1>Créer compte</h1></legend>
                 {inputs.map((input) => (
                     <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
                 ))}
-                <button>Créer</button>
+                <button className="form-button">VALIDER</button>
             </form>
         </div>
     );
