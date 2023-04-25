@@ -15,27 +15,36 @@ const UserRegister = () => {
             name:"userName",
             type:"text",
             placeholder:"Pseudo",
-            label:"Nom d'utilisateur"
+            errorMessage:"Le nom d'utilisateur ne doit pas contenir de caractères spéciaux",
+            label:"Nom d'utilisateur",
+            pattern: "[A-Za-z0-9]{3,16}$",
+            required: true
         },
         {
             id:2,
             name:"email",
             type:"email",
             placeholder:"Email",
-            label:"Email"
+            errorMessage:"L'adresse email proposée n'est pas valide",
+            label:"Email",
+            required: true
         },
         {
             id:3,
             name:"password",
             type:"password",
             placeholder:"Mot de passe",
-            label:"Mot de passe"
+            errorMessage:"Au moins 8 caractères, contenir une majuscule, un nombre et un caractère spécial",
+            label:"Mot de passe",
+            pattern :"^(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",
+            required: true
         },
         {
             id:4,
             name:"localisation",
             type:"text",
             placeholder:"Ville",
+            errorMessage:"",
             label:"Lieu d'habitation"
         },
     ]
