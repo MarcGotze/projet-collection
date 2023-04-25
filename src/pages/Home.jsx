@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import UserLog from '../components/UserLog';
 
 const Home = () => {
     return (
         <div>
             <Header/>
-            <h2>Page principale</h2>
+            <UserLog />
         </div>
     );
 };
