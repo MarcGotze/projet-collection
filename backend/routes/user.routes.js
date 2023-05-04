@@ -7,18 +7,8 @@ const {
 } = require("../controllers/users.controller");
 const router = express.Router();
 
-//C
-router.post("/register", setUser);
+router.route("/").post(setUser).get(getUsers);
 
-//R
-router.get("/users", getUsers);
-
-//U
-router.put("/:id", editUser);
-
-//D
-router.delete("/:id", deleteUser);
-
-//LOGIN IN WORK
+router.route("/:id").put(editUser).delete(deleteUser);
 
 module.exports = router;
