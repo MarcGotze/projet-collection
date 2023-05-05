@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import FormInput from './FormInput';
+import axios from 'axios';
 
 const UserRegister = () => {
     const [values, setValues] = useState({
         userName:"",
         password:"",
-        email:"",
-        localisation:""
+        mail:"",
+        location:""
     });
+
+    const [error, setError] = useState(null);
 
     const inputs = [
         {
@@ -22,7 +25,7 @@ const UserRegister = () => {
         },
         {
             id:2,
-            name:"email",
+            name:"mail",
             type:"email",
             placeholder:"Email",
             errorMessage:"L'adresse email proposée n'est pas valide",
@@ -41,7 +44,7 @@ const UserRegister = () => {
         },
         {
             id:4,
-            name:"localisation",
+            name:"location",
             type:"text",
             placeholder:"Ville",
             errorMessage:"",
@@ -50,23 +53,54 @@ const UserRegister = () => {
     ]
     
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("submitted");
+        const data = values;
+        console.log(data);
+        // axios.post('http://localhost:5000/users/register', data);
+        // const reponse = await Response.json();
+        // console.log(reponse);
+        
+        const reponse = await fetch('http://localhost:5000/users/register', {
+           method: 'POST',
+           body: JSON.stringify(data),
+           headers: {
+            'Content-Type' : 'application/json'
+           }
+        })
+        console.log("inside fetch");
+        console.log(reponse);
+        const json = await Response.json();
+
+        if(!Response.ok) {
+            setError(json.message)
+            console.log("reponse not ok");
+        }
+        if(Response.ok) {
+            setError(null);
+            setValues({
+                userName:"",
+                password:"",
+                mail:"",
+                location:""
+            });
+            console.log("Nouvel utilisateur créé", json)
+        }
     }
 
     const onChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value});
     }
-    console.log(values);
     return (
-        <div class="form-wrapper">
+        <div className="form-wrapper">
 
             <form className="userform" onSubmit={handleSubmit}>
                 <legend><h1>Créer compte</h1></legend>
                 {inputs.map((input) => (
                     <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
                 ))}
-                <button className="form-button">VALIDER</button>
+                <button className="form-button">Submit</button>
             </form>
         </div>
     );
