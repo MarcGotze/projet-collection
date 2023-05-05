@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const UsersModel = require("../models/users.model");
+const User = require("../models/users.model");
 
 module.exports.setUser = async (req, res) => {
   if (!req.body.username) {
@@ -31,6 +32,8 @@ module.exports.setUser = async (req, res) => {
 module.exports.loginUser = async (req, res) => {
   try {
     const user = await User.findUser(req.body.email, req.body.password);
+    req.session.userId = user._id;
+    res.redirect("/dashboard");
   } catch (e) {
     res.status(400).send();
   }

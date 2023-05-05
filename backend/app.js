@@ -12,7 +12,7 @@ connectDB();
 
 //Middleware traitant les données de la Request
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 //Gestion des autorisations du CORS
 app.use(cors());
@@ -26,7 +26,10 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: oneDay,
-      store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+      store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        autoRemove: "native",
+      }),
     },
     resave: false,
   })

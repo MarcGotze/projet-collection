@@ -42,6 +42,7 @@ const usersSchema = mongoose.Schema(
   }
 );
 
+//Fonction qui chercher l'utilisateur dans la DB
 usersSchema.statics.findUser = async (email, password) => {
   const user = User.findOne({ email });
   if (!user) throw new Error("Impossible de se connecter.");

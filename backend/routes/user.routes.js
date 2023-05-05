@@ -8,8 +8,8 @@ const {
 } = require("../controllers/users.controller");
 const router = express.Router();
 
-router.route("/").post(setUser).get(getUsers);
 router.route("/login").post(loginUser);
+router.route("/").post(setUser).get(getUsers);
 router.route("/:id").put(editUser).delete(deleteUser);
 
 module.exports = router;
