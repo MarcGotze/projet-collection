@@ -7,6 +7,10 @@ const usersSchema = mongoose.Schema(
     username: {
       type: String,
       required: true,
+      validate(v) {
+        if (!validator.isLength(v, { min: 5, max: 12 }))
+          throw new Error("Le pseudonyme doit faire entre 5 et 12 caractères.");
+      },
     },
     password: {
       type: String,
@@ -14,15 +18,18 @@ const usersSchema = mongoose.Schema(
       validate(v) {
         if (!validator.isLength(v, { min: 6, max: 20 }))
           throw new Error(
-            "Le mot de passe doit être entre 6 et 20 caractères !"
+            "Le mot de passe doit faire entre 6 et 20 caractères."
           );
       },
     },
-    mail: {
+    email: {
       type: String,
       required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
       validate(v) {
-        if (!validator.isEmail(v)) throw new Error("E-mail non valide !");
+        if (!validator.isEmail(v)) throw new Error("e-mail non valide.");
       },
     },
     location: {
@@ -34,6 +41,14 @@ const usersSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+usersSchema.statics.findUser = async (email, password) => {
+  const user = User.findOne({ email });
+  if (!user) throw new Error("Impossible de se connecter.");
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) throw new Error("Impossible de se connecter.");
+  return user;
+};
 
 //Fonction de hachage de mot de passe avant l'enregistrement dans la base de données
 usersSchema.pre("save", async function (next) {
