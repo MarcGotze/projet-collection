@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const sessions = require("express-session");
-// const cors = require("cors");
+const cors = require("cors");
 const MongoStore = require("connect-mongo");
 require("dotenv").config();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Gestion des autorisations du CORS
-// app.use(cors());
+app.use(cors());
 
 //Middleware de session
 const oneDay = 1000 * 60 * 60 * 24;

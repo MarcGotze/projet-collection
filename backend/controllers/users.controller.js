@@ -4,15 +4,19 @@ const UsersModel = require("../models/users.model");
 module.exports.setUser = async (req, res) => {
   if (!req.body.username) {
     res.status(400).json({ message: "Merci de saisir un pseudonyme." });
+    return;
   }
   if (!req.body.password) {
     res.status(400).json({ message: "Merci de saisir un mot de passe." });
+    return;
   }
   if (!req.body.email) {
     res.status(400).json({ message: "Merci de saisir une adresse e-mail." });
+    return;
   }
   if (!req.body.location) {
     res.status(400).json({ message: "Merci de saisir une localisation." });
+    return;
   }
 
   const user = await UsersModel.create({
