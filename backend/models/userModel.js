@@ -56,15 +56,12 @@ userSchema.statics.signup = async function (
   // }
 
   
-  // Jb : Verif fonctionne mais besoin de coder
-  // une alerte pour l'utilisateur
-  // pour l'instant l'erreur affichée est celle d'UserRegister.jsx
   const emailExists = await this.findOne({email :data.email});
   const usernameExists = await this.findOne({username : data.userName});
 
   if (emailExists || usernameExists) {
-    console.log("erreur doublon");
-    throw Error("Email ou pseudonyme déjà utilisé");
+
+    throw new Error("Email ou pseudonyme déjà utilisé");
   }
 
   // Hashage mdp fonctionnel
@@ -79,20 +76,21 @@ userSchema.statics.signup = async function (
 
 // static login method
 userSchema.statics.login = async function (email, password) {
-  if (!email || !password) {
-    throw Error("Tous les champs doivent être remplis");
-  }
+
+  // if (!email || !password) {
+  //   throw Error("Tous les champs doivent être remplis");
+  // }
 
   const user = await this.findOne({ email });
 
   if (!user) {
-    throw Error("Email incorrect");
+    throw new Error("Email incorrect");
   }
 
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
-    throw Error("Mot de passe incorrect");
+    throw new Error("Mot de passe incorrect");
   }
 
   return user;

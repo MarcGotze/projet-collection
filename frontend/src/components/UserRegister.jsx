@@ -55,7 +55,6 @@ const UserRegister = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("submitted");
         const data = values;
         try {
             const response = await axios.post(
@@ -71,35 +70,10 @@ const UserRegister = () => {
             });
             console.log('Nouvel utilisateur créé', response.data);
           } catch (error) {
-            setError(error.response.data.message);
-            console.log('Erreur lors de la création de l utilisateur', error);
+            
+            setError(error.response.data.error);
+            console.log('Erreur lors de la création de l utilisateur');
           }
-        
-        // const reponse = await fetch('http://localhost:3000/users/', {
-        //    method: 'POST',
-        //    body: JSON.stringify(data),
-        //    headers: {
-        //     'Content-Type' : 'application/json'
-        //    }
-        // })
-        // console.log("inside fetch");
-        // console.log(reponse);
-        // const json = await reponse.json();
-
-        // if(!reponse.ok) {
-        //     setError(json.message)
-        //     console.log("reponse not ok");
-        // }
-        // if(reponse.ok) {
-        //     setError(null);
-        //     setValues({
-        //         userName:"",
-        //         password:"",
-        //         mail:"",
-        //         location:""
-        //     });
-        //     console.log("Nouvel utilisateur créé", json)
-        // }
     }
 
     const onChange = (e) => {
@@ -109,11 +83,14 @@ const UserRegister = () => {
         <div className="form-wrapper">
 
             <form className="userform" onSubmit={handleSubmit}>
+                {console.log(error)}
+                {error && <p>{error}</p>}
                 <legend><h1>Créer compte</h1></legend>
                 {inputs.map((input) => (
                     <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
                 ))}
                 <button className="form-button">Submit</button>
+                
             </form>
         </div>
     );
