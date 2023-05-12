@@ -60,7 +60,7 @@ const UserRegister = () => {
         console.log(data);
         try {
             const response = await axios.post(
-              'http://localhost:3000/users/register',
+              'http://localhost:4000/api/users/signup',
               data
             );
             setError(null);
