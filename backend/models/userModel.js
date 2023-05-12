@@ -33,39 +33,46 @@ const userSchema = new Schema(
 
 // static signup method
 userSchema.statics.signup = async function (
-  username,
-  password,
-  email,
-  location
+  data
 ) {
-  // validation
-  if (!username || !password || !email || !location) {
-    throw Error("Tous les champs doivent être remplis");
-  }
-  if (!validator.isAlphanumeric(username)) {
-    throw Error("Pseudonyme non valide");
-  }
-  if (!validator.isStrongPassword(password)) {
-    throw Error("Mot de passe pas assez fort");
-  }
-  if (!validator.isEmail(email)) {
-    throw Error("Email non valide");
-  }
-  if (!validator.isAlpha(location)) {
-    throw Error("Localisation non valide");
-  }
 
-  const emailExists = await this.findOne({ email });
-  const usernameExists = await this.findOne({ username });
+  // Je propose de faire la valid des champs en front
+
+  // validation
+  // if (!data.username || !data.password || !data.email || !data.location) {
+  //   throw Error("Tous les champs doivent être remplis");
+  // }
+  // if (!validator.isAlphanumeric(data.username)) {
+  //   throw Error("Pseudonyme non valide");
+  // }
+  // if (!validator.isStrongPassword(data.password)) {
+  //   throw Error("Mot de passe pas assez fort");
+  // }
+  // if (!validator.isEmail(data.email)) {
+  //   throw Error("Email non valide");
+  // }
+  // if (!validator.isAlpha(data.location)) {
+  //   throw Error("Localisation non valide");
+  // }
+
+  
+  // Jb : Verif fonctionne mais besoin de coder
+  // une alerte pour l'utilisateur
+  // pour l'instant l'erreur affichée est celle d'UserRegister.jsx
+  const emailExists = await this.findOne({email :data.email});
+  const usernameExists = await this.findOne({username : data.userName});
 
   if (emailExists || usernameExists) {
+    console.log("erreur doublon");
     throw Error("Email ou pseudonyme déjà utilisé");
   }
 
+  // Hashage mdp fonctionnel
   const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
+  const hash = await bcrypt.hash(data.password, salt);
 
-  const user = await this.create({ username, password: hash, email, location });
+  // Création utilisateur fonctionnelle
+  const user = await this.create({ username : data.userName, password: hash, email : data.email, location : data.location });
 
   return user;
 };
