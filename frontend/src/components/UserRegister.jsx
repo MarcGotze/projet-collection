@@ -57,7 +57,6 @@ const UserRegister = () => {
         e.preventDefault();
         console.log("submitted");
         const data = values;
-        console.log(data);
         try {
             const response = await axios.post(
               'http://localhost:4000/api/users/signup',
