@@ -11,7 +11,7 @@ const {
 
 const router = express.Router();
 
-// POST a new user
+// SIGNUP
 router.post("/signup", signupUser);
 
 // LOGIN
