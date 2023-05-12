@@ -6,7 +6,7 @@ const UserRegister = () => {
     const [values, setValues] = useState({
         userName:"",
         password:"",
-        mail:"",
+        email:"",
         location:""
     });
 
@@ -25,7 +25,7 @@ const UserRegister = () => {
         },
         {
             id:2,
-            name:"mail",
+            name:"email",
             type:"email",
             placeholder:"Email",
             errorMessage:"L'adresse email proposée n'est pas valide",
@@ -58,35 +58,49 @@ const UserRegister = () => {
         console.log("submitted");
         const data = values;
         console.log(data);
-        // axios.post('http://localhost:5000/users/register', data);
-        // const reponse = await Response.json();
-        // console.log(reponse);
-        
-        const reponse = await fetch('http://localhost:5000/users/register', {
-           method: 'POST',
-           body: JSON.stringify(data),
-           headers: {
-            'Content-Type' : 'application/json'
-           }
-        })
-        console.log("inside fetch");
-        console.log(reponse);
-        const json = await Response.json();
-
-        if(!Response.ok) {
-            setError(json.message)
-            console.log("reponse not ok");
-        }
-        if(Response.ok) {
+        try {
+            const response = await axios.post(
+              'http://localhost:3000/users/register',
+              data
+            );
             setError(null);
             setValues({
-                userName:"",
-                password:"",
-                mail:"",
-                location:""
+              userName: '',
+              password: '',
+              email: '',
+              location: '',
             });
-            console.log("Nouvel utilisateur créé", json)
-        }
+            console.log('Nouvel utilisateur créé', response.data);
+          } catch (error) {
+            setError(error.response.data.message);
+            console.log('Erreur lors de la création de l utilisateur', error);
+          }
+        
+        // const reponse = await fetch('http://localhost:3000/users/', {
+        //    method: 'POST',
+        //    body: JSON.stringify(data),
+        //    headers: {
+        //     'Content-Type' : 'application/json'
+        //    }
+        // })
+        // console.log("inside fetch");
+        // console.log(reponse);
+        // const json = await reponse.json();
+
+        // if(!reponse.ok) {
+        //     setError(json.message)
+        //     console.log("reponse not ok");
+        // }
+        // if(reponse.ok) {
+        //     setError(null);
+        //     setValues({
+        //         userName:"",
+        //         password:"",
+        //         mail:"",
+        //         location:""
+        //     });
+        //     console.log("Nouvel utilisateur créé", json)
+        // }
     }
 
     const onChange = (e) => {

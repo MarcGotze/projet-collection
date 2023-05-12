@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const UserLog = () => {
     return (
-        <div class="form-wrapper">
+        <div className="form-wrapper">
             <form className="userform">
                 <label htmlFor="userName">
                     Email :
